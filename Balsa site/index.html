@@ -1,0 +1,1415 @@
+```html
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Balsa Branca | Serviços Portuários</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            color: #e8f4fa;
+            background:
+                radial-gradient(circle at 15% 10%, rgba(22, 141, 204, 0.12), transparent 30%),
+                radial-gradient(circle at 85% 90%, rgba(0, 119, 180, 0.10), transparent 35%),
+                linear-gradient(135deg, #061824 0%, #082334 50%, #061722 100%);
+            background-attachment: fixed;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        header {
+            background: rgba(6, 36, 61, 0.96);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(84, 207, 255, 0.12);
+        }
+
+        .header-container {
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+            min-height: 72px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 25px;
+        }
+
+        .logo {
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .logo span {
+            color: #54cfff;
+        }
+
+        nav {
+            display: flex;
+            gap: 25px;
+        }
+
+        nav a {
+            color: #d8eaf2;
+            font-size: 15px;
+            transition: 0.3s;
+            position: relative;
+        }
+
+        nav a::after {
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: #54cfff;
+            left: 0;
+            bottom: -7px;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: #54cfff;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* HERO */
+
+        .hero {
+            min-height: 620px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+
+            background:
+                linear-gradient(
+                    rgba(3, 17, 27, 0.70),
+                    rgba(3, 17, 27, 0.82)
+                ),
+                url("img/balsasa.jpeg") center/cover no-repeat;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 120px;
+            background: linear-gradient(transparent, #061824);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-small {
+            color: #54cfff;
+            font-size: 14px;
+            font-weight: bold;
+            letter-spacing: 3px;
+            margin-bottom: 15px;
+        }
+
+        .hero h1 {
+            font-size: clamp(42px, 7vw, 78px);
+            line-height: 1;
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            max-width: 620px;
+            color: #c4d7df;
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .hero-button {
+            display: inline-block;
+            background: #168dcc;
+            color: white;
+            padding: 14px 24px;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: 0.3s;
+            box-shadow: 0 8px 25px rgba(22, 141, 204, 0.22);
+        }
+
+        .hero-button:hover {
+            background: #54cfff;
+            color: #041722;
+            transform: translateY(-3px);
+        }
+
+        .section {
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+            padding: 80px 0;
+        }
+
+        .section-header {
+            margin-bottom: 35px;
+        }
+
+        .section-label {
+            color: #54cfff;
+            font-size: 13px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .section h2 {
+            color: white;
+            font-size: 36px;
+            margin-bottom: 12px;
+        }
+
+        .section-header p {
+            color: #9fb4c0;
+            line-height: 1.6;
+            max-width: 700px;
+        }
+
+        .port-line {
+            width: 100%;
+            height: 1px;
+            margin: 0 auto;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(84, 207, 255, 0.35),
+                transparent
+            );
+        }
+
+        /* FILTROS */
+
+        .filters {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr;
+            gap: 14px;
+            margin-bottom: 35px;
+        }
+
+        .filter-box {
+            position: relative;
+        }
+
+        .filter-box::before {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #54cfff;
+            font-size: 16px;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .search-box::before {
+            content: "⌕";
+        }
+
+        .destination-box::before {
+            content: "⚓";
+        }
+
+        .day-box::before {
+            content: "▣";
+        }
+
+        .filter,
+        .search {
+            width: 100%;
+            padding: 15px 16px 15px 42px;
+            background: rgba(12, 42, 60, 0.88);
+            border: 1px solid rgba(84, 207, 255, 0.16);
+            border-radius: 9px;
+            color: white;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .filter::placeholder,
+        .search::placeholder {
+            color: #78909d;
+        }
+
+        .filter:focus,
+        .search:focus {
+            border-color: #54cfff;
+            box-shadow: 0 0 0 3px rgba(84, 207, 255, 0.08);
+        }
+
+        select.filter {
+            appearance: none;
+            cursor: pointer;
+        }
+
+        select.filter option {
+            background: #09283a;
+            color: white;
+        }
+
+        /* CARDS */
+
+        .boat-list {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .boat-card {
+            background: rgba(10, 38, 55, 0.88);
+            border-radius: 14px;
+            padding: 25px;
+            border: 1px solid rgba(84, 207, 255, 0.16);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+            transition:
+                transform 0.3s ease,
+                border-color 0.3s ease,
+                box-shadow 0.3s ease,
+                opacity 0.4s ease;
+            opacity: 0;
+            transform: translateY(12px);
+        }
+
+        .boat-card.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .boat-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(84, 207, 255, 0.45);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+        }
+
+        .boat-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 18px;
+        }
+
+        .boat-name {
+            color: #7bdcff;
+            font-size: 20px;
+            line-height: 1.3;
+        }
+
+        .status {
+            padding: 5px 9px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .status.available {
+            background: rgba(41, 146, 92, 0.15);
+            color: #75e7a7;
+            border: 1px solid rgba(117, 231, 167, 0.16);
+        }
+
+        .status.unavailable {
+            background: rgba(194, 151, 47, 0.14);
+            color: #e8c96b;
+            border: 1px solid rgba(232, 201, 107, 0.16);
+        }
+
+        .boat-info {
+            margin: 10px 0;
+            color: #b8cbd6;
+            line-height: 1.5;
+        }
+
+        .boat-info strong {
+            color: #fff;
+        }
+
+        .boat-destinations {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+            margin-top: 16px;
+        }
+
+        .destination-tag {
+            padding: 5px 9px;
+            border-radius: 20px;
+            background: rgba(84, 207, 255, 0.08);
+            border: 1px solid rgba(84, 207, 255, 0.12);
+            color: #8edfff;
+            font-size: 12px;
+        }
+
+        .contact-boat-button {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 14px;
+            background: #25d366;
+            color: white;
+            border-radius: 7px;
+            font-size: 13px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .contact-boat-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(37, 211, 102, 0.20);
+        }
+
+        .empty-message {
+            color: #a9bdc8;
+            text-align: center;
+            padding: 40px;
+            grid-column: 1 / -1;
+        }
+
+        /* DESTINOS */
+
+        .destinations-section {
+            width: 100%;
+            max-width: none;
+            padding-left: 7%;
+            padding-right: 7%;
+            padding-top: 80px;
+            padding-bottom: 80px;
+            background: linear-gradient(135deg, #071d2b, #09283a);
+        }
+
+        .destinations-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+
+        .destination-card {
+            background: rgba(10, 38, 55, 0.88);
+            padding: 22px;
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            border: 1px solid rgba(84, 207, 255, 0.14);
+            transition: 0.3s;
+        }
+
+        .destination-card:hover {
+            transform: translateY(-4px);
+            border-color: #168dcc;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+        }
+
+        .destination-card h3 {
+            color: #7bdcff;
+            font-size: 17px;
+        }
+
+        .destination-card p {
+            margin-top: 7px;
+            color: #9fb4c0;
+            font-size: 13px;
+        }
+
+        /* SOBRE */
+
+        .about {
+            background: #061824;
+        }
+
+        .about-content {
+            max-width: 900px;
+        }
+
+        .about-content p {
+            color: #a9bdc8;
+            font-size: 17px;
+            line-height: 1.8;
+            margin-top: 15px;
+        }
+
+        /* LOCALIZAÇÃO */
+
+        .location {
+            padding: 80px 10%;
+            background: linear-gradient(135deg, #082536, #061b29);
+            position: relative;
+        }
+
+        .location-box {
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        .location-box h2 {
+            font-size: 36px;
+            margin: 12px 0;
+            color: white;
+        }
+
+        .location-box p {
+            color: #a9bdc8;
+            font-size: 18px;
+        }
+
+        .address-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 22px;
+            padding: 14px 18px;
+            border-radius: 9px;
+            border: 1px solid rgba(84, 207, 255, 0.18);
+            background: rgba(10, 38, 55, 0.65);
+            color: #8edfff;
+            transition: 0.3s;
+        }
+
+        .address-link:hover {
+            background: rgba(22, 141, 204, 0.15);
+            border-color: #54cfff;
+            transform: translateY(-2px);
+        }
+
+        /* CONTATO */
+
+        .contact {
+            text-align: center;
+            background: #0a3552;
+            padding: 75px 20px;
+        }
+
+        .contact h2 {
+            color: white;
+            font-size: 34px;
+            margin-bottom: 12px;
+        }
+
+        .contact p {
+            color: #b8d0dc;
+            margin-bottom: 25px;
+        }
+
+        .whatsapp-button {
+            display: inline-block;
+            background: #25d366;
+            color: white;
+            padding: 14px 24px;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .whatsapp-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.25);
+        }
+
+        /* BOTÃO FLUTUANTE */
+
+        .floating-whatsapp {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            background: #25d366;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            z-index: 999;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
+            transition: 0.3s;
+        }
+
+        .floating-whatsapp:hover {
+            transform: translateY(-4px) scale(1.05);
+        }
+
+        /* FOOTER */
+
+        footer {
+            background: #041c2d;
+            padding: 28px 20px;
+            text-align: center;
+            color: #708b99;
+            font-size: 13px;
+        }
+
+        /* RESPONSIVO */
+
+        @media (max-width: 1000px) {
+
+            .boat-list {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .destinations-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .filters {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .search-box {
+                grid-column: 1 / -1;
+            }
+        }
+
+        @media (max-width: 700px) {
+
+            .header-container {
+                flex-direction: column;
+                justify-content: center;
+                padding: 15px 0;
+            }
+
+            nav {
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+
+            .hero {
+                min-height: 540px;
+            }
+
+            .hero h1 {
+                font-size: 48px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .section,
+            .destinations-section,
+            .location {
+                padding-top: 60px;
+                padding-bottom: 60px;
+            }
+
+            .section h2,
+            .location-box h2 {
+                font-size: 30px;
+            }
+
+            .filters {
+                grid-template-columns: 1fr;
+            }
+
+            .search-box {
+                grid-column: auto;
+            }
+
+            .boat-list {
+                grid-template-columns: 1fr;
+            }
+
+            .destinations-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 450px) {
+
+            .destinations-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .boat-card {
+                padding: 20px;
+            }
+
+            .boat-top {
+                flex-direction: column;
+            }
+
+            .floating-whatsapp {
+                right: 15px;
+                bottom: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+
+    <header>
+
+        <div class="header-container">
+
+            <a href="#inicio" class="logo">
+                ⚓ Balsa <span>Branca</span>
+            </a>
+
+            <nav>
+                <a href="#inicio">Início</a>
+                <a href="#programacao">Programação</a>
+                <a href="#destinos">Destinos</a>
+                <a href="#localizacao">Localização</a>
+                <a href="#contato">Contato</a>
+            </nav>
+
+        </div>
+
+    </header>
+
+
+    <!-- HERO -->
+
+    <section class="hero" id="inicio">
+
+        <div class="hero-content">
+
+            <div class="hero-small">
+                SERVIÇOS PORTUÁRIOS
+            </div>
+
+            <h1>Balsa Branca</h1>
+
+            <p>
+                Consulte a programação de chegadas, saídas e destinos
+                das embarcações.
+            </p>
+
+            <a href="#programacao" class="hero-button">
+                Ver programação
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <div class="port-line"></div>
+
+
+    <!-- PROGRAMAÇÃO -->
+
+    <section class="section" id="programacao">
+
+        <div class="section-header">
+
+            <div class="section-label">
+                Horários e embarcações
+            </div>
+
+            <h2>Programação</h2>
+
+            <p>
+                Consulte as embarcações, seus destinos e os horários
+                de chegada e saída.
+            </p>
+
+        </div>
+
+
+        <div class="filters">
+
+            <div class="filter-box search-box">
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    class="search"
+                    placeholder="Pesquisar embarcação..."
+                >
+
+            </div>
+
+
+            <div class="filter-box destination-box">
+
+                <select id="destinationFilter" class="filter">
+
+                    <option value="all">
+                        Todos os destinos
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="filter-box day-box">
+
+                <select id="dayFilter" class="filter">
+
+                    <option value="all">
+                        Todos os dias
+                    </option>
+
+                    <option value="segunda">
+                        Segunda-feira
+                    </option>
+
+                    <option value="terca">
+                        Terça-feira
+                    </option>
+
+                    <option value="quarta">
+                        Quarta-feira
+                    </option>
+
+                    <option value="quinta">
+                        Quinta-feira
+                    </option>
+
+                    <option value="sexta">
+                        Sexta-feira
+                    </option>
+
+                    <option value="sabado">
+                        Sábado
+                    </option>
+
+                    <option value="domingo">
+                        Domingo
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <div class="boat-list" id="boatList"></div>
+
+    </section>
+
+
+    <!-- DESTINOS -->
+
+    <section class="destinations-section" id="destinos">
+
+        <div class="section-header">
+
+            <div class="section-label">
+                Rotas
+            </div>
+
+            <h2>Destinos</h2>
+
+            <p>
+                Clique em um destino para visualizar as embarcações
+                que realizam essa rota.
+            </p>
+
+        </div>
+
+        <div class="destinations-grid" id="destinationsGrid"></div>
+
+    </section>
+
+
+    <!-- SOBRE -->
+
+    <section class="section about">
+
+        <div class="about-content">
+
+            <div class="section-label">
+                Sobre a Balsa Branca
+            </div>
+
+            <h2>Serviços portuários</h2>
+
+            <p>
+                A Balsa Branca disponibiliza informações sobre horários
+                de embarcações, destinos, chegadas e saídas,
+                facilitando o planejamento das viagens.
+            </p>
+
+            <p>
+                Consulte a programação e encontre a embarcação
+                correspondente ao seu destino.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- LOCALIZAÇÃO -->
+
+    <section class="location" id="localizacao">
+
+        <div class="location-box">
+
+            <div class="section-label">
+                Onde estamos
+            </div>
+
+            <h2>Localização</h2>
+
+            <p>
+                Rua Lourenço da Silva Braga, Centro
+            </p>
+
+            <a
+                class="address-link"
+                href="https://www.google.com/maps/search/?api=1&query=Rua+Louren%C3%A7o+da+Silva+Braga,+Centro,+Manaus,+AM"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                📍 Abrir localização no Google Maps
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- CONTATO -->
+
+    <section class="contact" id="contato">
+
+        <h2>Entre em contato</h2>
+
+        <p>
+            Fale conosco para obter mais informações sobre
+            horários e embarcações.
+        </p>
+
+        <a
+            href="https://wa.me/5592991496097"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="whatsapp-button"
+        >
+            💬 Falar pelo WhatsApp
+        </a>
+
+        <p style="margin-top: 18px; margin-bottom: 0;">
+            (92) 99149-6097
+        </p>
+
+    </section>
+
+
+    <!-- WHATSAPP FLUTUANTE -->
+
+    <a
+        href="https://wa.me/5592991496097"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="floating-whatsapp"
+        aria-label="Falar pelo WhatsApp"
+    >
+        💬
+    </a>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+        © 2026 Balsa Branca. Todos os direitos reservados.
+    </footer>
+
+
+    <script>
+
+        const boats = [
+
+            {
+                name: "CMT. MAIA LLL",
+                destinations: ["Codajás"],
+                arrival: "Sexta-feira",
+                departure: "Segunda-feira — 12:00"
+            },
+
+            {
+                name: "Dona Lika",
+                destinations: ["Itapiranga", "S.S. Uatumã", "Urucará"],
+                arrival: "Sábado",
+                departure: "Segunda-feira — 18:00"
+            },
+
+            {
+                name: "PPJ",
+                destinations: ["Autazes"],
+                arrival: "Segunda e quinta-feira — 18:00",
+                departure: "Segunda e quinta-feira — 18:00"
+            },
+
+            {
+                name: "Dona Maria",
+                destinations: ["Autazes"],
+                arrival: "Segunda e sexta-feira — 18:00",
+                departure: "Terça e sexta-feira — 18:00"
+            },
+
+            {
+                name: "Poderoso",
+                destinations: ["Anamã", "Anori"],
+                arrival: "Segunda e sexta-feira",
+                departure: "Terça-feira e sexta-feira — 12:00"
+            },
+
+            {
+                name: "Madame Ariane",
+                destinations: ["Anori"],
+                arrival: "Domingo",
+                departure: "Terça-feira — 12:00"
+            },
+
+            {
+                name: "CMT. Souza",
+                destinations: ["Anamã", "Anori"],
+                arrival: "Segunda e sexta-feira",
+                departure: "Terça e sexta-feira — 12:00"
+            },
+
+            {
+                name: "CMT. Kennedy",
+                destinations: ["Anamã", "Beruri"],
+                arrival: "Domingo",
+                departure: "Terça-feira — 12:00"
+            },
+
+            {
+                name: "Pimentel Filho",
+                destinations: ["Autazes"],
+                arrival: "Terça-feira",
+                departure: "Quarta-feira — 18:00"
+            },
+
+            {
+                name: "M.S Vitória",
+                destinations: ["Itapiranga", "S.S. Uatumã", "Urucará"],
+                arrival: "Segunda-feira",
+                departure: "Terça-feira — 18:00"
+            },
+
+            {
+                name: "ALMT. Guimarães",
+                destinations: ["Itapiranga", "S.S. Uatumã", "Urucará"],
+                arrival: "Terça-feira",
+                departure: "Quarta-feira — 18:00"
+            },
+
+            {
+                name: "ALMT. Nunes",
+                destinations: ["Anamã", "Anori"],
+                arrival: "Quarta-feira",
+                departure: "Quinta-feira — 12:00"
+            },
+
+            {
+                name: "Irmão Santos",
+                destinations: ["Codajás"],
+                arrival: "Quarta-feira",
+                departure: "Sexta-feira — 12:00"
+            },
+
+            {
+                name: "Danielle III",
+                destinations: ["Codajás"],
+                arrival: "Quinta-feira",
+                departure: "Sábado — 12:00"
+            },
+
+            {
+                name: "CMT. Marinho",
+                destinations: ["Manaquiri", "Careiro Castanho"],
+                arrival: "Segunda e quinta-feira",
+                departure: "Terça e sexta-feira — 18:00"
+            },
+
+            {
+                name: "O Nôivo",
+                destinations: ["Itapiranga", "S.S. Uatumã", "Urucará"],
+                arrival: "Quinta-feira",
+                departure: "Sábado — 13:00"
+            },
+
+            {
+                name: "CMT. Oliveira",
+                destinations: ["Carauri"],
+                arrival: "Não disponível",
+                departure: "Não disponível"
+            },
+
+            {
+                name: "ALMT. Oliveira",
+                destinations: ["Carauri"],
+                arrival: "Não disponível",
+                departure: "Não disponível"
+            },
+
+            {
+                name: "Jesus te ama",
+                destinations: ["Carauri"],
+                arrival: "Não disponível",
+                departure: "Não disponível"
+            },
+
+            {
+                name: "Vovô Chicão",
+                destinations: ["Beruri"],
+                arrival: "Quarta-feira",
+                departure: "Sexta-feira — 12:00"
+            },
+
+            {
+                name: "Nova Conquista",
+                destinations: ["Beruri"],
+                arrival: "Sexta-feira",
+                departure: "Sábado — 12:00"
+            },
+
+            {
+                name: "Maresia",
+                destinations: ["Lábrea"],
+                arrival: "Não disponível",
+                departure: "Não disponível"
+            }
+
+        ];
+
+
+        const boatList = document.getElementById("boatList");
+        const searchInput = document.getElementById("searchInput");
+        const destinationFilter = document.getElementById("destinationFilter");
+        const dayFilter = document.getElementById("dayFilter");
+        const destinationsGrid = document.getElementById("destinationsGrid");
+
+
+        const destinations = [
+            ...new Set(
+                boats.flatMap(boat => boat.destinations)
+            )
+        ].sort();
+
+
+        destinations.forEach(destination => {
+
+            const option = document.createElement("option");
+
+            option.value = destination;
+            option.textContent = destination;
+
+            destinationFilter.appendChild(option);
+
+        });
+
+
+        function normalize(text) {
+
+            return text
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "")
+                .toLowerCase();
+
+        }
+
+
+        function boatMatchesDay(boat, selectedDay) {
+
+            if (selectedDay === "all") {
+                return true;
+            }
+
+            const arrival = normalize(boat.arrival);
+            const departure = normalize(boat.departure);
+
+            const text = arrival + " " + departure;
+
+            const dayMap = {
+
+                segunda: "segunda",
+                terca: "terca",
+                quarta: "quarta",
+                quinta: "quinta",
+                sexta: "sexta",
+                sabado: "sabado",
+                domingo: "domingo"
+
+            };
+
+            return text.includes(dayMap[selectedDay]);
+
+        }
+
+
+        function renderBoats() {
+
+            const search =
+                normalize(searchInput.value.trim());
+
+            const selectedDestination =
+                destinationFilter.value;
+
+            const selectedDay =
+                dayFilter.value;
+
+
+            const filteredBoats = boats.filter(boat => {
+
+                const matchesSearch =
+                    normalize(boat.name).includes(search);
+
+                const matchesDestination =
+                    selectedDestination === "all" ||
+                    boat.destinations.includes(selectedDestination);
+
+                const matchesDay =
+                    boatMatchesDay(boat, selectedDay);
+
+                return (
+                    matchesSearch &&
+                    matchesDestination &&
+                    matchesDay
+                );
+
+            });
+
+
+            boatList.innerHTML = "";
+
+
+            if (filteredBoats.length === 0) {
+
+                boatList.innerHTML = `
+                    <div class="empty-message">
+                        Nenhuma embarcação encontrada.
+                    </div>
+                `;
+
+                return;
+
+            }
+
+
+            filteredBoats.forEach((boat, index) => {
+
+                const unavailable =
+                    boat.arrival === "Não disponível" &&
+                    boat.departure === "Não disponível";
+
+
+                const card =
+                    document.createElement("div");
+
+                card.className = "boat-card";
+
+
+                card.innerHTML = `
+
+                    <div class="boat-top">
+
+                        <h3 class="boat-name">
+                            ${boat.name}
+                        </h3>
+
+                        <span class="status ${unavailable ? "unavailable" : "available"}">
+                            ${unavailable ? "Sem previsão" : "Programado"}
+                        </span>
+
+                    </div>
+
+
+                    <div class="boat-info">
+
+                        <strong>🛬 Chegada:</strong><br>
+
+                        ${unavailable
+                            ? "Sem previsão"
+                            : boat.arrival}
+
+                    </div>
+
+
+                    <div class="boat-info">
+
+                        <strong>🛫 Saída:</strong><br>
+
+                        ${unavailable
+                            ? "Sem previsão"
+                            : boat.departure}
+
+                    </div>
+
+
+                    ${unavailable ? `
+
+                        <a
+                            href="https://wa.me/5592991496097"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="contact-boat-button"
+                        >
+                            💬 Fale conosco
+                        </a>
+
+                    ` : ""}
+
+
+                    <div class="boat-info">
+
+                        <strong>⚓ Destinos:</strong>
+
+                    </div>
+
+
+                    <div class="boat-destinations">
+
+                        ${boat.destinations.map(destination => `
+
+                            <span class="destination-tag">
+                                ${destination}
+                            </span>
+
+                        `).join("")}
+
+                    </div>
+
+                `;
+
+
+                boatList.appendChild(card);
+
+
+                setTimeout(() => {
+
+                    card.classList.add("show");
+
+                }, index * 45);
+
+            });
+
+        }
+
+
+        function renderDestinations() {
+
+            destinationsGrid.innerHTML = "";
+
+
+            destinations.forEach(destination => {
+
+                const amount =
+                    boats.filter(
+                        boat =>
+                            boat.destinations.includes(destination)
+                    ).length;
+
+
+                const card =
+                    document.createElement("div");
+
+                card.className =
+                    "destination-card";
+
+
+                card.innerHTML = `
+
+                    <h3>
+                        ${destination}
+                    </h3>
+
+                    <p>
+                        ${amount}
+                        ${amount === 1
+                            ? "embarcação"
+                            : "embarcações"}
+                    </p>
+
+                `;
+
+
+                card.addEventListener(
+                    "click",
+                    () => {
+
+                        destinationFilter.value =
+                            destination;
+
+                        dayFilter.value =
+                            "all";
+
+                        renderBoats();
+
+                        document
+                            .getElementById("programacao")
+                            .scrollIntoView({
+                                behavior: "smooth"
+                            });
+
+                    }
+                );
+
+
+                destinationsGrid.appendChild(card);
+
+            });
+
+        }
+
+
+        searchInput.addEventListener(
+            "input",
+            renderBoats
+        );
+
+        addEventListener(
+            "change",
+            renderBoats
+        );
+
+        dayFilter.addEventListener(
+            "change",
+            renderBoats
+        );
+
+
+        renderBoats();
+        renderDestinations();
+
+    </script>
+
+</body>
+</html>
+```
